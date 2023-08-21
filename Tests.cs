@@ -2,16 +2,15 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using RestSharp;
-using System;
 
 namespace Tests
 {
-    class ListOfTests : jsonplaceholder
+    class ListOfTests : Jsonplaceholder
     {
         [Test]
         public void GetUsersList()
         {
-            IRestResponse response = GetUsersRequest();
+            RestResponse response = GetUsersRequest();
             Assert.AreEqual("OK", response.StatusCode.ToString());
             Assert.IsTrue(response.Content.Contains("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
         }
@@ -19,7 +18,7 @@ namespace Tests
         [Test]
         public void CreateNewUser()
         {
-            IRestResponse response = CreateUserRequest();
+            RestResponse response = CreateUserRequest();
             Assert.AreEqual("Created", response.StatusCode.ToString());
             Assert.IsTrue(response.Content.Contains("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
         }
@@ -27,14 +26,14 @@ namespace Tests
         [Test]
         public void DeleteUser()
         {
-            IRestResponse response = DeleteUserRequest();
+            RestResponse response = DeleteUserRequest();
             Assert.AreEqual("OK", response.StatusCode.ToString());
         }
 
         [Test]
         public void EditUser()
         {
-            IRestResponse response = CreateUserRequest();
+            RestResponse response = CreateUserRequest();
             Assert.AreEqual("Created", response.StatusCode.ToString());
             Assert.IsTrue(response.Content.Contains("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
         }
@@ -52,7 +51,7 @@ namespace Tests
             driver.Close();
         }
 
-       [Test]
+        [Test]
         public void CheckNavigation()
         {
             IWebDriver driver = new ChromeDriver();
@@ -62,7 +61,7 @@ namespace Tests
             IWebElement runScriptBtn = driver.FindElement(By.CssSelector("[id='run-button']"));
             IWebElement guideBtn = driver.FindElement(By.CssSelector("[class='mr-4 no-underline']"));
             IWebElement result = driver.FindElement(By.CssSelector("[id='result']"));
-            
+
 
             runScriptBtn.Click();
             Assert.True(result.Displayed);
